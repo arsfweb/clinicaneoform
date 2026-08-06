@@ -203,7 +203,8 @@
 
     .btn-gold {
       background: var(--gold-gradient);
-      color: #0A0A0A;
+      color: #0A0A0A !important;
+      -webkit-text-fill-color: #0A0A0A !important;
       font-weight: 700;
       padding: 0.85rem 1.8rem;
       border-radius: 50px;
@@ -321,9 +322,13 @@
       line-height: 1.6;
     }
 
-    h1, h2, h3, h4, h5, h6, .section-title, .hero-title {
+    h1, h2, h3, h4, h5, h6, .section-title, .hero-title, .footer-title {
       font-family: var(--font-title);
       letter-spacing: 0.02em;
+      color: #D4AF37;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     /* Modern & Delicate Descriptions in Metallic Champagne Gold */
@@ -404,7 +409,11 @@
       font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: 1px;
-      color: var(--text-main);
+      color: #D4AF37;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
     }
 
     .nav-brand-sub {
@@ -1213,16 +1222,16 @@
 
     .multiteam-title {
       font-family: var(--font-title);
-      font-size: 1.08rem;
+      font-size: 1.35rem;
       color: var(--text-main);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.45rem;
       font-weight: 700;
     }
 
     .multiteam-desc {
-      font-size: 0.82rem;
+      font-size: 0.98rem !important;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     /* ==========================================================================
@@ -2712,7 +2721,7 @@
           <a href="#home" class="nav-logo" style="margin-bottom: 1rem;">
             <img src="https://i.ibb.co/Z6ZF8Cbj/logo.png" alt="Neoform Emblem" style="height: 48px; width: 48px; border-radius: 50%; border: 1px solid var(--gold-solid);" referrerpolicy="no-referrer" />
             <div class="nav-logo-text">
-              <span class="nav-brand-name" style="color: #FFF;">NEOFORM</span>
+              <span class="nav-brand-name">NEOFORM</span>
               <span class="nav-brand-sub">Estética Avançada</span>
             </div>
           </a>
