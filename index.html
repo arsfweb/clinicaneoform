@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#070707">
+  <meta name="theme-color" content="#000000">
   <title>Neoform Clínica Estética Avançada | Balneário Camboriú</title>
 
   <!-- Google Fonts -->
@@ -28,7 +28,7 @@
           },
           colors: {
             gold: { DEFAULT: '#BF953F', light: '#FCF6BA', dark: '#AA771C' },
-            noir: { DEFAULT: '#070707', 2: '#0E0E0E', 3: '#121212', 4: '#161616' }
+            noir: { DEFAULT: '#000000', 2: '#0E0E0E', 3: '#121212', 4: '#161616' }
           }
         }
       }
@@ -43,19 +43,13 @@
     * { -webkit-tap-highlight-color: transparent; }
 
     body {
-      background-color: #070707;
+      background-color: #000000;
       color: #F3F0E7;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* ===== FUNDO NOIR TEXTURIZADO ===== */
-    .bg-noir {
-      background:
-        radial-gradient(1100px 520px at 85% -5%, rgba(191,149,63,.10), transparent 60%),
-        radial-gradient(820px 420px at -12% 28%, rgba(191,149,63,.06), transparent 60%),
-        radial-gradient(900px 480px at 50% 112%, rgba(191,149,63,.08), transparent 62%),
-        #070707;
-    }
+    /* ===== FUNDO PRETO ===== */
+    .bg-noir { background: #000000; }
     .grain {
       position: fixed; inset: 0; z-index: 70; pointer-events: none; opacity: .05;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)' opacity='0.6'/></svg>");
@@ -87,10 +81,12 @@
     }
     .card-lux:hover { border-color: rgba(252,246,186,.45); }
 
-    /* Logo em destaque, sem moldura */
-    .logo-hero {
-      filter: drop-shadow(0 0 22px rgba(191,149,63,.5)) drop-shadow(0 0 60px rgba(191,149,63,.25));
+    /* ===== LOGO: entrada suave, sem brilho amarelo ===== */
+    @keyframes logoIn {
+      0%   { opacity: 0; transform: scale(.88) translateY(18px); }
+      100% { opacity: 1; transform: none; }
     }
+    .logo-in { animation: logoIn 1.2s cubic-bezier(.22,1,.36,1) both; }
 
     /* ===== ÍCONES LINEARES (SVG SPRITE) ===== */
     .icon {
@@ -216,24 +212,34 @@
 
     <main>
 
-      <!-- ================= HERO (como na referência) ================= -->
+      <!-- ================= HERO ================= -->
       <section v-if="activeTab === 'home'" class="relative overflow-hidden">
+
+        <!-- Fundo preto com veios dourados -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden">
-          <svg class="absolute -left-24 -top-14 w-[480px] max-w-none opacity-70" viewBox="0 0 480 240" fill="none">
+          <!-- veios fluidos topo esquerdo -->
+          <svg class="absolute -left-20 -top-8 w-[440px] max-w-none opacity-70" viewBox="0 0 480 240" fill="none">
             <path d="M0 190C140 60 300 40 480 120" stroke="url(#goldStroke)" stroke-width="1.1"/>
             <path d="M0 214C150 92 300 70 480 150" stroke="url(#goldStroke)" stroke-width=".6" opacity=".45"/>
           </svg>
-          <svg class="absolute -right-64 top-16 w-[680px] max-w-none opacity-60" viewBox="0 0 640 640" fill="none">
-            <circle cx="320" cy="320" r="300" stroke="url(#goldStroke)" stroke-width="1"/>
-            <circle cx="320" cy="320" r="252" stroke="url(#goldStroke)" stroke-width=".5" opacity=".4"/>
+          <!-- veios fluidos direita -->
+          <svg class="absolute -right-24 top-1/3 w-[430px] max-w-none opacity-60" viewBox="0 0 480 320" fill="none">
+            <path d="M480 40C340 96 220 96 0 24" stroke="url(#goldStroke)" stroke-width="1"/>
+            <path d="M480 74C350 128 220 128 0 58" stroke="url(#goldStroke)" stroke-width=".6" opacity=".45"/>
           </svg>
-          <div class="absolute -top-36 left-1/2 -translate-x-1/2 w-[720px] h-[380px] rounded-full bg-[#BF953F]/10 blur-[110px]"></div>
+          <!-- veio sutil base -->
+          <svg class="absolute -left-16 bottom-0 w-[420px] max-w-none opacity-40" viewBox="0 0 480 240" fill="none">
+            <path d="M0 60C160 160 320 170 480 90" stroke="url(#goldStroke)" stroke-width=".8"/>
+          </svg>
         </div>
 
-        <div class="relative max-w-4xl mx-auto px-5 pt-14 sm:pt-20 pb-14 text-center flex flex-col items-center">
+        <div class="relative max-w-4xl mx-auto px-5 pt-14 sm:pt-20 pb-16 text-center flex flex-col items-center">
 
-          <!-- Logo livre, em destaque -->
-          <img :src="clinic.logoUrl" alt="Emblema Neoform" class="logo-hero rise rise-1 w-44 sm:w-64 h-auto object-contain select-none mb-8">
+          <!-- LOGO grande sobre fundo preto, sem halo amarelo -->
+          <div class="relative mb-10 sm:mb-12 flex items-center justify-center">
+            <img :src="clinic.logoUrl" alt="Emblema Neoform"
+              class="logo-in relative z-10 w-80 sm:w-[26rem] h-auto object-contain select-none">
+          </div>
 
           <h1 class="rise rise-2 font-serif text-4xl sm:text-6xl font-semibold tracking-[0.3em] uppercase gold-gradient-text mb-3">Neoform</h1>
           <p class="rise rise-2 text-[10px] sm:text-xs font-semibold tracking-[0.55em] uppercase text-[#BF953F] mb-8">Estética Avançada</p>
@@ -301,18 +307,17 @@
             </button>
           </div>
 
-          <div :class="activeTab === 'home'
-                ? 'flex gap-3.5 overflow-x-auto pb-3 -mx-4 px-4 snap-x snap-mandatory scrollbar-none lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:mx-0 lg:px-0'
-                : 'grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3.5 md:gap-5'">
+          <!-- Grade: 2 colunas no celular (nada cortado), 4 no desktop -->
+          <div :class="activeTab === 'home' ? 'grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5' : 'grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5'">
 
             <article v-for="t in (activeTab === 'home' ? popularTreatments : filteredTreatments)" :key="t.id"
               @click="toggleExpand(t.id)"
               :class="inPackage(t.id) ? 'border-[#FCF6BA]/60 shadow-[0_0_25px_rgba(191,149,63,0.25)]' : ''"
-              class="card-lux relative flex flex-col items-center text-center p-4 sm:p-5 w-40 sm:w-48 lg:w-auto snap-center cursor-pointer transition-all duration-300 hover:-translate-y-1.5">
+              class="card-lux relative flex flex-col items-center text-center p-3.5 sm:p-5 cursor-pointer transition-all duration-300 hover:-translate-y-1.5">
 
               <span v-if="t.popular" class="absolute -top-2.5 right-4 btn-gold text-[8px] font-extrabold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full">Destaque</span>
 
-              <svg class="icon w-10 h-10 sm:w-12 sm:h-12 text-[#D8B465] mb-3.5"><use :href="'#' + t.icon"></use></svg>
+              <svg class="icon w-10 h-10 sm:w-12 sm:h-12 text-[#D8B465] mb-3 sm:mb-3.5"><use :href="'#' + t.icon"></use></svg>
 
               <h3 class="text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase text-gold-light leading-relaxed mb-1.5">{{ t.cardTitle }}</h3>
               <p class="text-[10px] text-gray-400 font-light leading-relaxed line-clamp-2 mb-3">{{ t.shortDesc }}</p>
@@ -323,14 +328,14 @@
                 </li>
               </ul>
 
-              <div class="mt-auto flex items-center gap-2">
+              <div class="mt-auto flex items-center gap-1.5 sm:gap-2 w-full justify-center">
                 <button @click.stop="openWhatsApp('Olá! Gostaria de agendar o procedimento: ' + t.title)"
-                  class="btn-ghost rounded-full px-3.5 py-2 text-[9px] font-bold uppercase tracking-[0.15em] flex items-center gap-1.5 cursor-pointer hover:border-gold-light transition-colors">
+                  class="btn-ghost rounded-full px-2.5 sm:px-3.5 py-2 text-[9px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] flex items-center gap-1.5 cursor-pointer hover:border-gold-light transition-colors">
                   <i class="fa-brands fa-whatsapp text-[11px] text-[#BF953F]"></i><span>Agendar</span>
                 </button>
                 <button @click.stop="togglePackage(t)" :aria-label="inPackage(t.id) ? 'Remover do pacote' : 'Adicionar ao pacote'"
                   :class="inPackage(t.id) ? 'btn-gold border-transparent' : 'text-[#BF953F] border-[#BF953F]/50 hover:border-gold-light'"
-                  class="w-9 h-9 rounded-full border flex items-center justify-center cursor-pointer transition-all bg-transparent">
+                  class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center cursor-pointer transition-all bg-transparent shrink-0">
                   <i :class="inPackage(t.id) ? 'fa-solid fa-check' : 'fa-solid fa-plus'" class="text-xs"></i>
                 </button>
               </div>
@@ -374,9 +379,9 @@
             </div>
 
             <div class="lg:col-span-6 relative">
-              <svg class="absolute -top-10 -right-8 w-64 opacity-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
-                <circle cx="100" cy="100" r="96" stroke="url(#goldStroke)" stroke-width="1"/>
-                <circle cx="100" cy="100" r="78" stroke="url(#goldStroke)" stroke-width=".5" opacity=".5"/>
+              <svg class="absolute -top-8 -right-6 w-56 opacity-50 pointer-events-none" viewBox="0 0 200 200" fill="none">
+                <path d="M20 120C60 40 140 20 190 60" stroke="url(#goldStroke)" stroke-width="1"/>
+                <path d="M10 150C60 60 150 40 196 90" stroke="url(#goldStroke)" stroke-width=".6" opacity=".5"/>
               </svg>
               <div class="relative rounded-3xl overflow-hidden border border-[#BF953F]/40 bg-[#101010] p-2 shadow-[0_0_45px_rgba(191,149,63,0.15)]">
                 <img :src="clinic.nelWolffImgUrl" alt="Dra. Nel Wolff — Neoform" class="w-full h-auto max-h-[480px] object-cover rounded-2xl brightness-95">
@@ -436,11 +441,11 @@
 
           <!-- ===== CTA CHAMATIVO: AVALIE NO GOOGLE ===== -->
           <div class="mt-8 relative overflow-hidden rounded-3xl border border-[#BF953F]/45 bg-gradient-to-b from-[#151006] to-[#0B0906] p-8 sm:p-12 text-center shadow-[0_0_60px_rgba(191,149,63,0.2)]">
-            <svg class="absolute -left-40 -top-40 w-[420px] opacity-40 pointer-events-none" viewBox="0 0 640 640" fill="none">
-              <circle cx="320" cy="320" r="300" stroke="url(#goldStroke)" stroke-width=".8"/>
+            <svg class="absolute -left-24 -top-16 w-[380px] opacity-40 pointer-events-none" viewBox="0 0 480 240" fill="none">
+              <path d="M0 190C140 60 300 40 480 120" stroke="url(#goldStroke)" stroke-width=".9"/>
             </svg>
-            <svg class="absolute -right-44 -bottom-44 w-[420px] opacity-40 pointer-events-none" viewBox="0 0 640 640" fill="none">
-              <circle cx="320" cy="320" r="300" stroke="url(#goldStroke)" stroke-width=".8"/>
+            <svg class="absolute -right-24 -bottom-16 w-[380px] opacity-40 pointer-events-none" viewBox="0 0 480 240" fill="none">
+              <path d="M480 60C340 170 180 180 0 100" stroke="url(#goldStroke)" stroke-width=".9"/>
             </svg>
 
             <div class="relative flex flex-col items-center gap-4">
@@ -467,7 +472,7 @@
       <footer class="border-t border-[#BF953F]/20 bg-black/60">
         <div class="hairline"></div>
         <div class="max-w-7xl mx-auto px-5 py-10 flex flex-col items-center text-center gap-5">
-          <img :src="clinic.logoUrl" alt="Neoform" class="logo-hero w-16 h-16 object-contain">
+          <img :src="clinic.logoUrl" alt="Neoform" class="w-16 h-16 object-contain">
           <p class="font-serif text-2xl tracking-[0.3em] uppercase gold-gradient-text font-semibold">Neoform</p>
           <p class="text-[10px] text-gray-500 font-light max-w-sm leading-relaxed">{{ clinic.address }} · {{ clinic.formattedPhone }}</p>
 
@@ -483,7 +488,7 @@
     </main>
 
     <!-- ================= NAVEGAÇÃO MOBILE ================= -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#070707]/95 backdrop-blur-xl border-t border-[#BF953F]/30 px-2 flex items-end justify-around"
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#000000]/95 backdrop-blur-xl border-t border-[#BF953F]/30 px-2 flex items-end justify-around"
       :style="{ paddingBottom: 'calc(10px + env(safe-area-inset-bottom))' }">
       <button v-for="item in mobileNav" :key="item.id" @click="activeTab = item.id; scrollToTop()"
         :class="activeTab === item.id ? 'text-gold-light' : 'text-gray-500'"
@@ -493,7 +498,7 @@
       </button>
 
       <button @click="openWhatsApp('Olá! Vim pelo site e gostaria de agendar uma avaliação.')" aria-label="Agendar pelo WhatsApp"
-        class="btn-gold w-14 h-14 rounded-full flex items-center justify-center -mt-7 border-4 border-[#070707] shadow-[0_0_25px_rgba(191,149,63,0.6)] cursor-pointer order-last">
+        class="btn-gold w-14 h-14 rounded-full flex items-center justify-center -mt-7 border-4 border-[#000000] shadow-[0_0_25px_rgba(191,149,63,0.6)] cursor-pointer order-last">
         <i class="fa-brands fa-whatsapp text-2xl"></i>
       </button>
     </nav>
@@ -589,7 +594,7 @@
           nelWolffImgUrl: 'https://i.ibb.co/XZmqLR90/image.png',
           mapsUrl: 'https://maps.google.com/?q=Av.+Brasil,+1615+-+Centro,+Balne%C3%A1rio+Cambori%C3%BA+-+SC',
           /* Link de avaliação fornecido pela clínica */
-          googleReviewUrl: 'https://www.google.com/search?client=ms-android-motorola-rvo3&hs=LfjV&sca_esv=4cebbcfd45329c7e&sxsrf=APpeQnv1eIcXkpzNrzPcEUHqWor3EFtiAw:1786114464548&q=avalia%C3%A7%C3%B5es+sobre+neoform+cl%C3%ADnica+est%C3%A9tica+avan%C3%A7ada+balne%C3%A1rio+cambori%C3%BA&uds=AJ5uw1-m412bHotxCZEQ7UmziUWH6T0vIaWepcHAa59xadxWQPZYs4LBmO21x7y8MTOU7b38Fw8rTG3bkB0RF8br_5ApmJRrGoVDQ6L2L6xUjLw6U95rK1llcbl6nUhezy6_trTj76sGcvoURFtfv5gYx2tMZO0RCML4qcLatuCVjDirJA-nAc5I0rd_AUbqX8JJVT23poys_0hw9z0vs9iLdytDeomZrnSQHDazTUEf23BkKsRtM2299uBrOjeZxm4B1nrsiv0Tlmgfgvnv2E6stYigQZv9B21UzicXHxGwhg9muhjv_dhYeUl-Wk43sWIrH13qlmj0wsQceZJ1RJE7G1pSaIcQ3KgedpMwBPd-vROyj09nRUupRLDzAapfhT_WG-lRBIyXO3xhGoy7gUK3ePpW0kRXoww7P0eB49gAS82bCwXZna2oSAh5mw5__LPoXcHqFjLvaJv_hasoVqsJE-uuWR_Tv6hgb1TT8wjLM4GZZ0&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_7bzzEu4E-EGppFP7Gy1JkqcNDJj478qkvG8mRhowiuk9b-FnHxv8FC2USoq-3wfSd15NOGrBXSqAAk-EzC0MTT-wqEbpV5e_c6DQwmk3Y_SBdD45KSHBuqJbpiuEWjWYFQ2cY4I10HvlsQWFotj59fBl1Xu37wpvetsbfR3OND_4RBAgQ%3D%3D&sa=X&ved=2ahUKEwi9w7_x4o6WAxUZq5UCHVR_LQEQk8gLegQIGxAB&ictx=1'
+          googleReviewUrl: 'https://www.google.com/search?client=ms-android-motorola-rvo3&hs=LfjV&sca_esv=4cebbcfd45329c7e&sxsrf=APpeQnv1eIcXkpzNrzPcEUHqWor3EFtiAw:1786114464548&q=avalia%C3%A7%C3%B5es+sobre+neoform+cl%C3%ADnica+est%C3%A9tica+avan%C3%A7ada+balne%C3%A1rio+cambori%C3%BA&uds=AJ5uw1-m412bHotxCZEQ7UmziUWH6T0vIaWepcHAa59xadxWQPZYs4LBmO21x7y8MTOU7b38Fw8rTG3bkB0RF8br_5ApmJRrGoVDQ6L2L6xUjLw6U95rK1llcbl6nUhezy6_trTj76sGcvoURFtfv5gYx2tMZO0RCML4qcLatuCVjDirJA-nAc5I0rd_AUbqX8JJVT23poys_0hw9z0vs9iLdytDeomZrnSQHDazTUEf23BkKsRtM2299uBrOjeZxm4B1nrsiv0Tlmgfgvnv2E6stYigQZv9B21UzicXHxGwhg9muhjv_dhYeUl-Wk43sWIrH13qlmj0wsQceZJ1RJE7G1pSaIcQ3KgedpMwBPd-vROyj09nRUupRLDzAapfhT_WG-lRBIyXO3xhGoy7gUK3ePpW0kRXoww7P0eB49gAS82bCwXZna2oSAh5mw5__LPoXcHqFjLvaJv_hasoVqsJE-uuWR_Tv6hgb1TT8wjLM4GZZ0&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_7bzzEu4E-EGppFP7Gy1JkqcNDJj478qkvG8mRhowiuk9b-FnHxv8FC2USoq-3wfSd15NOGrBXSqAAk-EzC0MTT-wqEbpV5e_c6DQwmk3Y_SBdD45KSHBuqJbpiuEWjWYFQ2cY4I10HvlsQWFotj59fBl1Xu37wpvetsbfR3OND_4RBAgQ%3D%3D&sa=X&ved=2ahUKEwi9w7_x4o6WAxUZq5UCHVR_LQEQk8gLegQIGxAB&ictx=1&biw=511&bih=1002&dpr=2.39'
         });
 
         const categories = ref([
