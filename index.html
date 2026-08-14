@@ -8,6 +8,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Neoform Centro de Saúde e Estética | Balneário Camboriú</title>
 
+  <!-- PRELOAD DA LOGO (carrega antes de todo o resto) -->
+  <link rel="preload" as="image" href="https://i.ibb.co/4nP06LDN/ok.png" fetchpriority="high">
+
   <!-- Google Fonts — FONTE ÚNICA PADRONIZADA (a mesma da logo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,7 +131,7 @@
     <!-- BARRA SUPERIOR DE NAVEGAÇÃO (SOMENTE DESKTOP) -->
     <header class="hidden md:flex fixed top-0 inset-x-0 z-40 bg-[#000000]/95 backdrop-blur-xl border-b border-[#D4AF37]/30 px-6 lg:px-10 py-3 items-center justify-between gap-6">
       <button @click="activeTab = 'home'; scrollToTop()" class="flex items-center gap-3 cursor-pointer active:scale-95 transition-transform">
-        <img :src="clinic.logoUrl" alt="Logo Neoform" class="w-10 h-10 object-contain">
+        <img :src="clinic.logoUrl" alt="Logo Neoform" class="w-10 h-10 object-contain" width="40" height="40">
         <span class="text-xl font-semibold tracking-[0.2em] text-[#E6C35C] uppercase">Neoform</span>
       </button>
 
@@ -151,10 +154,19 @@
         <div class="relative py-10 sm:py-16 md:py-20 overflow-hidden bg-[#000000] border-b border-[#D4AF37]/20">
           <div class="max-w-5xl mx-auto px-2 sm:px-6 text-center relative z-10 flex flex-col items-center">
             
-            <!-- LOGA GIGANTE (92% DA TELA) COM NOVA IMAGEM RECORADA -->
+            <!-- LOGO: 92% DA TELA NO CELULAR / ~440PX NO DESKTOP -->
             <div @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="mb-4 cursor-pointer active:scale-95 transition-transform w-full flex justify-center">
-              <div class="w-[92vw] h-[92vw] sm:w-[560px] sm:h-[560px] md:w-[640px] md:h-[640px] lg:w-[720px] lg:h-[720px] flex items-center justify-center">
-                <img :src="clinic.logoUrl" alt="Neoform Emblem" class="w-full h-full object-contain">
+              <div class="w-[92vw] h-[92vw] sm:w-[380px] sm:h-[380px] md:w-[420px] md:h-[420px] lg:w-[440px] lg:h-[440px] flex items-center justify-center">
+                <img
+                  :src="clinic.logoUrl"
+                  alt="Neoform Emblem"
+                  class="w-full h-full object-contain"
+                  width="720"
+                  height="720"
+                  fetchpriority="high"
+                  loading="eager"
+                  decoding="async"
+                >
               </div>
             </div>
 
@@ -379,7 +391,7 @@
               
               <div class="lg:col-span-5 relative">
                 <div class="relative rounded-3xl overflow-hidden border-2 border-[#D4AF37] bg-[#000000]">
-                  <img :src="clinic.nelWolffImgUrl" alt="Nel Wolff & Clínica Neoform" class="w-full h-auto max-h-[520px] object-cover rounded-2xl">
+                  <img :src="clinic.nelWolffImgUrl" alt="Nel Wolff & Clínica Neoform" class="w-full h-auto max-h-[520px] object-cover rounded-2xl" loading="lazy">
                 </div>
               </div>
 
@@ -515,7 +527,7 @@
     <footer class="hidden md:block bg-[#000000] border-t border-[#D4AF37]/30 py-8 text-center text-sm text-[#D4AF37]">
       <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <img :src="clinic.logoUrl" alt="Logo Neoform" class="w-8 h-8 object-contain">
+          <img :src="clinic.logoUrl" alt="Logo Neoform" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy">
           <span class="text-lg font-semibold tracking-[0.2em] uppercase text-[#E6C35C]">Neoform Estética Avançada</span>
         </div>
         <p class="text-[#D4AF37]">© 2026 Neoform Estética Avançada. Todos os direitos reservados. Balneário Camboriú - SC.</p>
