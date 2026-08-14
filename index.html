@@ -8,10 +8,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Neoform Centro de Saúde e Estética | Balneário Camboriú</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts — FONTE ÚNICA PADRONIZADA (a mesma da logo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -24,9 +24,8 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            sans: ['Cormorant Garamond', 'serif'],
             serif: ['Cormorant Garamond', 'serif'],
-            cursive: ['Alex Brush', 'cursive'],
           }
         }
       }
@@ -40,7 +39,9 @@
     body {
       background-color: #000000;
       color: #D4AF37;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Cormorant Garamond', serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       -webkit-tap-highlight-color: transparent;
       -webkit-text-size-adjust: 100%;
       overscroll-behavior-y: contain;
@@ -101,44 +102,6 @@
     }
     .floating-whatsapp:active { transform: scale(0.92); }
 
-    .logo-container {
-      position: relative;
-      animation: logoFloat 4s ease-in-out infinite;
-      background: #000000;
-    }
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-    .logo-ring {
-      position: absolute;
-      inset: -8px;
-      border: 1px solid rgba(212, 175, 55, 0.5);
-      border-radius: 50%;
-      animation: ringRotate 20s linear infinite;
-      background: transparent;
-    }
-    .logo-ring::before {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      border-radius: 50%;
-      background: transparent;
-    }
-    @keyframes ringRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .logo-ring-dashed {
-      position: absolute;
-      inset: -18px;
-      border: 1px dashed rgba(212, 175, 55, 0.25);
-      border-radius: 50%;
-      animation: ringRotate 40s linear infinite reverse;
-      background: transparent;
-    }
-
     @media (max-width: 640px) {
       .modal-mobile {
         position: fixed !important;
@@ -166,15 +129,15 @@
     <header class="hidden md:flex fixed top-0 inset-x-0 z-40 bg-[#000000]/95 backdrop-blur-xl border-b border-[#D4AF37]/30 px-6 lg:px-10 py-3 items-center justify-between gap-6">
       <button @click="activeTab = 'home'; scrollToTop()" class="flex items-center gap-3 cursor-pointer active:scale-95 transition-transform">
         <img :src="clinic.logoUrl" alt="Logo Neoform" class="w-10 h-10 object-contain">
-        <span class="font-['Cormorant_Garamond'] text-xl font-bold tracking-[3px] text-[#E6C35C]">NEOFORM</span>
+        <span class="text-xl font-semibold tracking-[0.2em] text-[#E6C35C] uppercase">Neoform</span>
       </button>
 
       <nav class="flex items-center gap-5 lg:gap-8">
-        <button @click="activeTab = 'home'; scrollToTop()" :class="activeTab === 'home' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors cursor-pointer">Início</button>
-        <button @click="activeTab = 'tratamentos'; scrollToTop()" :class="activeTab === 'tratamentos' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors cursor-pointer">Tratamentos</button>
-        <button @click="activeTab = 'sobre'; scrollToTop()" :class="activeTab === 'sobre' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors cursor-pointer">Sobre</button>
-        <button @click="activeTab = 'localizacao'; scrollToTop()" :class="activeTab === 'localizacao' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors cursor-pointer">Local</button>
-        <button @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="gold-button font-extrabold text-xs uppercase tracking-widest px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer active:scale-95 transition-transform">
+        <button @click="activeTab = 'home'; scrollToTop()" :class="activeTab === 'home' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-sm font-semibold uppercase tracking-[0.15em] border-b-2 pb-1 transition-colors cursor-pointer">Início</button>
+        <button @click="activeTab = 'tratamentos'; scrollToTop()" :class="activeTab === 'tratamentos' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-sm font-semibold uppercase tracking-[0.15em] border-b-2 pb-1 transition-colors cursor-pointer">Tratamentos</button>
+        <button @click="activeTab = 'sobre'; scrollToTop()" :class="activeTab === 'sobre' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-sm font-semibold uppercase tracking-[0.15em] border-b-2 pb-1 transition-colors cursor-pointer">Sobre</button>
+        <button @click="activeTab = 'localizacao'; scrollToTop()" :class="activeTab === 'localizacao' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-sm font-semibold uppercase tracking-[0.15em] border-b-2 pb-1 transition-colors cursor-pointer">Local</button>
+        <button @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="gold-button font-bold text-sm uppercase tracking-[0.15em] px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer active:scale-95 transition-transform">
           <i class="fa-brands fa-whatsapp text-sm text-black"></i>
           <span>Agendar</span>
         </button>
@@ -186,38 +149,36 @@
       <!-- GUIA 1: INÍCIO (RESUMIDO) -->
       <section v-if="activeTab === 'home'">
         <div class="relative py-10 sm:py-16 md:py-20 overflow-hidden bg-[#000000] border-b border-[#D4AF37]/20">
-          <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10 flex flex-col items-center">
+          <div class="max-w-5xl mx-auto px-2 sm:px-6 text-center relative z-10 flex flex-col items-center">
             
-            <!-- LOGO GRANDE E VISÍVEL -->
-            <div @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="logo-container mb-8 cursor-pointer">
-              <div class="logo-ring-dashed"></div>
-              <div class="logo-ring"></div>
-              <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 flex items-center justify-center transition-transform duration-500 active:scale-95 z-10 bg-transparent">
+            <!-- LOGA GIGANTE (92% DA TELA) COM NOVA IMAGEM RECORADA -->
+            <div @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="mb-4 cursor-pointer active:scale-95 transition-transform w-full flex justify-center">
+              <div class="w-[92vw] h-[92vw] sm:w-[560px] sm:h-[560px] md:w-[640px] md:h-[640px] lg:w-[720px] lg:h-[720px] flex items-center justify-center">
                 <img :src="clinic.logoUrl" alt="Neoform Emblem" class="w-full h-full object-contain">
               </div>
             </div>
 
-            <h2 class="font-['Cormorant_Garamond'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[6px] sm:tracking-[8px] gold-gradient-text uppercase leading-none mb-3">
-              NEOFORM
+            <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-[0.25em] pl-[0.25em] gold-gradient-text uppercase leading-none mb-4">
+              Neoform
             </h2>
 
-            <p class="text-xs sm:text-sm tracking-[4px] sm:tracking-[5px] uppercase text-[#D4AF37] font-bold mb-6">
-              Centro de Saúde e Estética
+            <p class="text-sm sm:text-base tracking-[0.45em] pl-[0.45em] uppercase text-[#D4AF37] font-semibold mb-8">
+              Estética Avançada
             </p>
 
             <div class="w-20 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mb-8"></div>
 
-            <h1 class="font-['Cormorant_Garamond'] text-2xl sm:text-4xl md:text-5xl font-normal leading-tight mb-8 max-w-2xl text-[#E6C35C] tracking-wide">
-              Sua beleza em sua <span class="italic font-normal gold-gradient-text">melhor versão</span>
+            <h1 class="uppercase tracking-[0.12em] text-2xl sm:text-4xl md:text-5xl font-medium leading-snug mb-9 max-w-3xl text-[#E6C35C]">
+              Sua beleza em sua <span class="gold-gradient-text">melhor versão</span>
             </h1>
 
-            <div class="flex flex-col items-stretch justify-center gap-3 w-full max-w-md mb-10">
-              <button @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="gold-button font-extrabold text-sm uppercase tracking-widest px-6 py-5 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.45)] active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-[#F1D488]/50 min-h-[60px]">
+            <div class="flex flex-col items-stretch justify-center gap-3 w-full max-w-md mb-10 px-2">
+              <button @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="gold-button font-bold text-base uppercase tracking-[0.2em] px-6 py-5 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.45)] active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-[#F1D488]/50 min-h-[60px]">
                 <i class="fa-brands fa-whatsapp text-xl text-black"></i>
                 <span>Agendar Avaliação</span>
               </button>
 
-              <button @click="activeTab = 'tratamentos'; scrollToTop()" class="bg-[#000000] border-2 border-[#D4AF37] active:border-[#F1D488] text-[#E6C35C] font-bold text-sm tracking-wider px-6 py-5 rounded-2xl transition-all flex items-center justify-center gap-2.5 cursor-pointer hover:bg-[#0A0A0A] min-h-[60px]">
+              <button @click="activeTab = 'tratamentos'; scrollToTop()" class="bg-[#000000] border-2 border-[#D4AF37] active:border-[#F1D488] text-[#E6C35C] font-bold text-base tracking-[0.2em] uppercase px-6 py-5 rounded-2xl transition-all flex items-center justify-center gap-2.5 cursor-pointer hover:bg-[#0A0A0A] min-h-[60px]">
                 <i class="fa-solid fa-sparkles text-xl text-[#E6C35C]"></i>
                 <span>Ver Tratamentos</span>
               </button>
@@ -227,26 +188,26 @@
             <div class="grid grid-cols-2 md:grid-cols-4 w-full max-w-3xl pt-6 border-t border-[#D4AF37]/30">
               <div class="flex flex-col items-center text-center p-3 sm:p-4 border-r border-b md:border-b-0 border-[#D4AF37]/20">
                 <svg class="w-10 h-10 sm:w-12 sm:h-12 text-[#E6C35C] mb-2" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M 38 12 C 30 12 24 18 24 26 C 24 30 25.5 33 28 36 C 29.5 37.8 30.5 40 30 43 C 29 47 26 50 20 52 C 28 55 38 53 44 46 C 48 41 50 34 50 26 C 50 18 45 12 38 12 Z"/><path d="M 14 18 L 16 22 L 20 24 L 16 26 L 14 30 L 12 26 L 8 24 L 12 22 Z" fill="#E6C35C" stroke="none"/></svg>
-                <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-[#E6C35C]">ESTÉTICA</span>
-                <span class="text-[10px] sm:text-[11px] text-[#D4AF37]/90 mt-0.5">Avançada e Facial</span>
+                <span class="text-sm font-bold tracking-[0.2em] uppercase text-[#E6C35C]">Estética</span>
+                <span class="text-sm text-[#D4AF37]/90 mt-0.5">Avançada e Facial</span>
               </div>
 
               <div class="flex flex-col items-center text-center p-3 sm:p-4 border-b md:border-b-0 md:border-r border-[#D4AF37]/20">
                 <svg class="w-10 h-10 sm:w-12 sm:h-12 text-[#E6C35C] mb-2" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M 32 10 C 18 10 10 24 10 38 C 10 48 20 54 32 54 C 44 54 54 48 54 38 C 54 24 46 10 32 10 Z"/><path d="M 32 10 L 32 54"/><path d="M 32 32 L 44 24"/></svg>
-                <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-[#E6C35C]">SAÚDE</span>
-                <span class="text-[10px] sm:text-[11px] text-[#D4AF37]/90 mt-0.5">Integrativa</span>
+                <span class="text-sm font-bold tracking-[0.2em] uppercase text-[#E6C35C]">Saúde</span>
+                <span class="text-sm text-[#D4AF37]/90 mt-0.5">Integrativa</span>
               </div>
 
               <div class="flex flex-col items-center text-center p-3 sm:p-4 border-r border-[#D4AF37]/20">
                 <svg class="w-10 h-10 sm:w-12 sm:h-12 text-[#E6C35C] mb-2" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="32" cy="32" r="5"/><circle cx="16" cy="16" r="4"/><circle cx="48" cy="16" r="4"/><circle cx="16" cy="48" r="4"/><circle cx="48" cy="48" r="4"/><line x1="20" y1="20" x2="28" y2="28"/><line x1="44" y1="20" x2="36" y2="28"/><line x1="20" y1="44" x2="28" y2="36"/><line x1="44" y1="44" x2="36" y2="36"/></svg>
-                <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-[#E6C35C]">TECNOLOGIA</span>
-                <span class="text-[10px] sm:text-[11px] text-[#D4AF37]/90 mt-0.5">Sem Dor</span>
+                <span class="text-sm font-bold tracking-[0.2em] uppercase text-[#E6C35C]">Tecnologia</span>
+                <span class="text-sm text-[#D4AF37]/90 mt-0.5">Sem Dor</span>
               </div>
 
               <div class="flex flex-col items-center text-center p-3 sm:p-4">
                 <svg class="w-10 h-10 sm:w-12 sm:h-12 text-[#E6C35C] mb-2" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M 32 54 C 32 54 50 44 50 28 L 50 14 L 32 8 L 14 14 L 14 28 C 14 44 32 54 32 54 Z"/><path d="M 24 28 L 30 34 L 42 22"/></svg>
-                <span class="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-[#E6C35C]">SEGURANÇA</span>
-                <span class="text-[10px] sm:text-[11px] text-[#D4AF37]/90 mt-0.5">Corpo Técnico</span>
+                <span class="text-sm font-bold tracking-[0.2em] uppercase text-[#E6C35C]">Segurança</span>
+                <span class="text-sm text-[#D4AF37]/90 mt-0.5">Corpo Técnico</span>
               </div>
             </div>
 
@@ -262,23 +223,23 @@
             <div>
               <div class="flex items-center gap-2 mb-2">
                 <span class="w-8 h-[2px] bg-[#D4AF37]"></span>
-                <span class="text-[10px] sm:text-xs font-bold tracking-[3px] uppercase text-[#D4AF37]">
-                  TRATAMENTOS
+                <span class="text-sm font-bold tracking-[0.3em] uppercase text-[#D4AF37]">
+                  Tratamentos
                 </span>
               </div>
-              <h2 class="font-['Cormorant_Garamond'] text-2xl sm:text-4xl md:text-5xl font-normal text-[#E6C35C] leading-tight">
-                Soluções para cada fase da sua <span class="italic gold-gradient-text">jornada</span>.
+              <h2 class="uppercase tracking-[0.08em] text-3xl sm:text-4xl md:text-5xl font-semibold text-[#E6C35C] leading-tight">
+                Soluções para cada fase da sua <span class="gold-gradient-text">jornada</span>.
               </h2>
-              <span class="md:hidden flex items-center gap-2 mt-3 text-[10px] uppercase tracking-widest text-[#D4AF37]/70">
+              <span class="md:hidden flex items-center gap-2 mt-3 text-sm uppercase tracking-[0.2em] text-[#D4AF37]/70">
                 <i class="fa-solid fa-hand-pointer"></i> Arraste para o lado
               </span>
             </div>
 
             <button
               @click="activeCategory = 'todos'"
-              class="border border-[#D4AF37]/60 active:border-[#F1D488] text-[#E6C35C] px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2.5 cursor-pointer self-start md:self-auto bg-[#000000] min-h-[48px]"
+              class="border border-[#D4AF37]/60 active:border-[#F1D488] text-[#E6C35C] px-5 py-3 rounded-xl text-sm font-bold uppercase tracking-[0.15em] transition-all flex items-center gap-2.5 cursor-pointer self-start md:self-auto bg-[#000000] min-h-[48px]"
             >
-              <span>VER TODOS</span>
+              <span>Ver Todos</span>
               <i class="fa-solid fa-arrow-right text-xs text-[#E6C35C]"></i>
             </button>
           </div>
@@ -288,8 +249,8 @@
               v-for="cat in categories"
               :key="cat.id"
               @click="activeCategory = cat.id"
-              :class="activeCategory === cat.id ? 'bg-gradient-to-r from-[#C9A227] via-[#F1D488] to-[#D4AF37] text-black font-extrabold border-transparent shadow-[0_0_15px_rgba(212,175,55,0.4)]' : 'bg-[#000000] text-[#D4AF37] border-[#D4AF37]/40 active:border-[#F1D488] active:text-[#E6C35C]'"
-              class="px-4 py-3 rounded-full text-xs font-semibold tracking-wider whitespace-nowrap transition-all cursor-pointer border min-h-[44px]"
+              :class="activeCategory === cat.id ? 'bg-gradient-to-r from-[#C9A227] via-[#F1D488] to-[#D4AF37] text-black font-bold border-transparent shadow-[0_0_15px_rgba(212,175,55,0.4)]' : 'bg-[#000000] text-[#D4AF37] border-[#D4AF37]/40 active:border-[#F1D488] active:text-[#E6C35C]'"
+              class="px-4 py-3 rounded-full text-sm font-semibold tracking-[0.1em] whitespace-nowrap transition-all cursor-pointer border min-h-[44px]"
             >
               {{ cat.label }}
             </button>
@@ -313,11 +274,11 @@
                   </svg>
                 </div>
 
-                <h3 class="font-['Cormorant_Garamond'] text-xl sm:text-2xl font-bold tracking-wider gold-gradient-text uppercase mb-3 leading-snug">
+                <h3 class="uppercase tracking-[0.08em] text-2xl font-semibold gold-gradient-text mb-3 leading-snug">
                   {{ treatment.title }}
                 </h3>
 
-                <p class="text-sm sm:text-sm text-[#D4AF37]/90 font-light leading-relaxed mb-6">
+                <p class="text-base text-[#D4AF37]/90 font-medium leading-relaxed mb-6">
                   {{ treatment.shortDesc }}
                 </p>
               </div>
@@ -326,7 +287,7 @@
                 <div class="flex items-center justify-between w-full gap-3">
                   <button
                     @click="openWhatsApp('Olá! Gostaria de agendar o procedimento: ' + treatment.title + '. ' + treatment.shortDesc)"
-                    class="flex-1 gold-button font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-xl active:scale-95 transition-all cursor-pointer shadow-md min-h-[48px]"
+                    class="flex-1 gold-button font-bold text-sm uppercase tracking-[0.15em] py-3.5 rounded-xl active:scale-95 transition-all cursor-pointer shadow-md min-h-[48px]"
                   >
                     Agendar
                   </button>
@@ -349,14 +310,14 @@
           <div class="mt-12 sm:mt-16">
             <div class="flex items-center gap-2 mb-2">
               <span class="w-8 h-[2px] bg-[#D4AF37]"></span>
-              <span class="text-[10px] sm:text-xs font-bold tracking-[3px] uppercase text-[#D4AF37]">ESPECIALIDADES</span>
+              <span class="text-sm font-bold tracking-[0.3em] uppercase text-[#D4AF37]">Especialidades</span>
             </div>
 
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-6">
-              <h2 class="font-['Cormorant_Garamond'] text-2xl sm:text-4xl font-normal text-[#E6C35C] leading-tight">
-                Corpo técnico <span class="italic gold-gradient-text">multidisciplinar</span>.
+              <h2 class="uppercase tracking-[0.08em] text-3xl sm:text-4xl font-semibold text-[#E6C35C] leading-tight">
+                Corpo técnico <span class="gold-gradient-text">multidisciplinar</span>.
               </h2>
-              <span class="md:hidden flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#D4AF37]/70">
+              <span class="md:hidden flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-[#D4AF37]/70">
                 <i class="fa-solid fa-hand-pointer"></i> Arraste para o lado
               </span>
             </div>
@@ -372,15 +333,15 @@
                   <div class="w-16 h-16 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/10 flex items-center justify-center mb-4 shrink-0 shadow-[inset_0_0_15px_rgba(212,175,55,0.15)]">
                     <span class="emoji-gold text-2xl leading-none">{{ spec.emoji }}</span>
                   </div>
-                  <h3 class="font-['Cormorant_Garamond'] text-lg sm:text-xl font-bold text-[#E6C35C] mb-2 leading-snug">{{ spec.title }}</h3>
-                  <p class="text-xs sm:text-sm text-[#D4AF37]/85 font-light leading-relaxed mb-5">{{ spec.desc }}</p>
+                  <h3 class="text-xl font-semibold text-[#E6C35C] mb-2 leading-snug">{{ spec.title }}</h3>
+                  <p class="text-base text-[#D4AF37]/85 font-medium leading-relaxed mb-5">{{ spec.desc }}</p>
                 </div>
 
                 <div class="pt-4 border-t border-[#D4AF37]/30 w-full">
                   <div class="flex items-center justify-between w-full gap-3">
                     <button
                       @click="openWhatsApp('Olá! Gostaria de agendar com o profissional: ' + spec.title + '. ' + spec.desc)"
-                      class="flex-1 gold-button font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-xl active:scale-95 transition-all cursor-pointer shadow-md min-h-[48px]"
+                      class="flex-1 gold-button font-bold text-sm uppercase tracking-[0.15em] py-3.5 rounded-xl active:scale-95 transition-all cursor-pointer shadow-md min-h-[48px]"
                     >
                       Agendar
                     </button>
@@ -401,7 +362,7 @@
 
           <!-- BOTÃO VER PACOTE FLUTUANTE -->
           <div v-if="packageList.length > 0" class="fixed bottom-24 md:bottom-8 right-4 z-40">
-            <button @click="showPackageModal = true" class="gold-button font-extrabold text-xs uppercase tracking-wider px-5 py-4 rounded-full flex items-center gap-2 cursor-pointer active:scale-95 shadow-xl min-h-[52px]">
+            <button @click="showPackageModal = true" class="gold-button font-bold text-sm uppercase tracking-[0.15em] px-5 py-4 rounded-full flex items-center gap-2 cursor-pointer active:scale-95 shadow-xl min-h-[52px]">
               <i class="fa-solid fa-box-archive text-black"></i>
               <span>Pacote ({{ packageList.length }})</span>
             </button>
@@ -410,7 +371,7 @@
         </div>
       </section>
 
-      <!-- GUIA 3: SOBRE NEL WOLFF — PROPRIETÁRIA & ADMINISTRADORA -->
+      <!-- GUIA 3: SOBRE NEL WOLFF — TIPOGRAFIA PADRONIZADA -->
       <section v-if="activeTab === 'sobre'" class="py-12 sm:py-16 md:py-24 bg-[#000000] border-t-2 border-[#D4AF37]">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="noir-card rounded-3xl p-5 sm:p-8 md:p-10 border-2 border-[#D4AF37]">
@@ -424,32 +385,32 @@
 
               <div class="lg:col-span-7 space-y-6">
                 <div>
-                  <span class="text-xs sm:text-sm font-bold uppercase tracking-[3px] sm:tracking-[4px] text-[#D4AF37]">👑 PROPRIETÁRIA & ADMINISTRADORA</span>
-                  <h2 class="font-['Cormorant_Garamond'] text-4xl sm:text-5xl lg:text-6xl font-bold text-[#E6C35C] mt-2 leading-tight">
+                  <span class="text-sm font-bold uppercase tracking-[0.3em] text-[#D4AF37]">👑 Proprietária & Administradora</span>
+                  <h2 class="uppercase tracking-[0.15em] text-4xl sm:text-5xl lg:text-6xl font-semibold gold-gradient-text mt-2 leading-tight">
                     Nel Wolff
                   </h2>
-                  <p class="font-['Cormorant_Garamond'] text-xl sm:text-2xl italic gold-gradient-text mt-1">
-                    Tradição e Ciência em Balneário Camboriú.
+                  <p class="text-sm sm:text-base uppercase tracking-[0.25em] text-[#E6C35C] mt-3">
+                    Tradição e Ciência em Balneário Camboriú
                   </p>
                 </div>
 
-                <p class="text-sm sm:text-lg text-[#D4AF37] font-light leading-relaxed">
+                <p class="text-base sm:text-lg text-[#D4AF37] font-medium leading-relaxed">
                   À frente da Neoform como proprietária e administradora, Nel Wolff lidera a equipe com uma visão integrativa e humanizada. Cada procedimento é rigorosamente desenvolvido para realçar a beleza natural com segurança e sofisticação.
                 </p>
 
                 <div class="grid grid-cols-2 gap-4 sm:gap-6 py-4 border-y border-[#D4AF37]/40">
                   <div class="border-l-4 border-[#D4AF37] pl-3 sm:pl-4">
-                    <p class="text-2xl sm:text-3xl font-extrabold gold-gradient-text">100%</p>
-                    <p class="text-xs sm:text-sm text-[#E6C35C] font-bold">Atendimento Exclusivo</p>
+                    <p class="text-3xl sm:text-4xl font-semibold gold-gradient-text">100%</p>
+                    <p class="text-sm text-[#E6C35C] font-bold uppercase tracking-[0.15em] mt-1">Atendimento Exclusivo</p>
                   </div>
                   <div class="border-l-4 border-[#D4AF37] pl-3 sm:pl-4">
-                    <p class="text-2xl sm:text-3xl font-extrabold gold-gradient-text">6 Anos</p>
-                    <p class="text-xs sm:text-sm text-[#E6C35C] font-bold">Excelência Clínica</p>
+                    <p class="text-3xl sm:text-4xl font-semibold gold-gradient-text">6 Anos</p>
+                    <p class="text-sm text-[#E6C35C] font-bold uppercase tracking-[0.15em] mt-1">Excelência Clínica</p>
                   </div>
                 </div>
 
                 <div class="pt-2">
-                  <button @click="openWhatsApp('Olá Nel Wolff! Gostaria de agendar meu atendimento personalizado na Neoform.')" class="w-full sm:w-auto gold-button font-extrabold text-xs sm:text-sm uppercase tracking-widest px-6 sm:px-8 py-4 sm:py-5 rounded-xl flex items-center justify-center gap-3 cursor-pointer shadow-xl active:scale-95 transition-transform border border-[#F1D488] min-h-[56px]">
+                  <button @click="openWhatsApp('Olá Nel Wolff! Gostaria de agendar meu atendimento personalizado na Neoform.')" class="w-full sm:w-auto gold-button font-bold text-base uppercase tracking-[0.2em] px-6 sm:px-8 py-4 sm:py-5 rounded-xl flex items-center justify-center gap-3 cursor-pointer shadow-xl active:scale-95 transition-transform border border-[#F1D488] min-h-[56px]">
                     <i class="fa-brands fa-whatsapp text-xl"></i>
                     <span>Agendar com Nel Wolff</span>
                   </button>
@@ -466,9 +427,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-[3px] text-[#D4AF37]">NOSSO ENDEREÇO</span>
-            <h2 class="font-['Cormorant_Garamond'] text-2xl sm:text-4xl md:text-5xl font-bold text-[#E6C35C] mt-1 leading-tight">
-              Venha Conhecer Nosso <span class="italic font-normal gold-gradient-text">Espaço</span>.
+            <span class="text-sm font-bold uppercase tracking-[0.3em] text-[#D4AF37]">Nosso Endereço</span>
+            <h2 class="uppercase tracking-[0.08em] text-3xl sm:text-4xl md:text-5xl font-semibold text-[#E6C35C] mt-2 leading-tight">
+              Venha conhecer nosso <span class="gold-gradient-text">espaço</span>.
             </h2>
           </div>
 
@@ -480,8 +441,8 @@
                   <i class="fa-solid fa-location-dot"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h4 class="text-xs sm:text-sm font-bold text-[#E6C35C] uppercase tracking-wider mb-1">Endereço</h4>
-                  <p class="text-xs sm:text-sm text-[#D4AF37]/90 leading-relaxed">{{ clinic.address }}</p>
+                  <h4 class="text-base font-bold text-[#E6C35C] uppercase tracking-[0.15em] mb-1">Endereço</h4>
+                  <p class="text-base text-[#D4AF37]/90 font-medium leading-relaxed">{{ clinic.address }}</p>
                 </div>
               </div>
 
@@ -490,8 +451,8 @@
                   <i class="fa-solid fa-clock"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h4 class="text-xs sm:text-sm font-bold text-[#E6C35C] uppercase tracking-wider mb-1">Horário</h4>
-                  <p class="text-xs sm:text-sm text-[#D4AF37]/90 leading-relaxed">{{ clinic.openingHours }}</p>
+                  <h4 class="text-base font-bold text-[#E6C35C] uppercase tracking-[0.15em] mb-1">Horário</h4>
+                  <p class="text-base text-[#D4AF37]/90 font-medium leading-relaxed">{{ clinic.openingHours }}</p>
                 </div>
               </div>
 
@@ -500,25 +461,25 @@
                   <i class="fa-brands fa-whatsapp"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h4 class="text-xs sm:text-sm font-bold text-[#E6C35C] uppercase tracking-wider mb-1">WhatsApp</h4>
-                  <p class="text-xs sm:text-sm text-[#D4AF37]/90 leading-relaxed">{{ clinic.formattedPhone }}</p>
+                  <h4 class="text-base font-bold text-[#E6C35C] uppercase tracking-[0.15em] mb-1">WhatsApp</h4>
+                  <p class="text-base text-[#D4AF37]/90 font-medium leading-relaxed">{{ clinic.formattedPhone }}</p>
                 </div>
               </div>
 
               <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                <a :href="clinic.mapsUrl" target="_blank" class="flex-1 bg-[#000000] border border-[#D4AF37] active:border-[#F1D488] text-[#E6C35C] font-bold text-xs uppercase tracking-wider py-4 px-4 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md min-h-[52px] active:scale-95">
+                <a :href="clinic.mapsUrl" target="_blank" class="flex-1 bg-[#000000] border border-[#D4AF37] active:border-[#F1D488] text-[#E6C35C] font-bold text-sm uppercase tracking-[0.15em] py-4 px-4 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md min-h-[52px] active:scale-95">
                   <i class="fa-solid fa-map-location-dot text-base text-[#E6C35C]"></i>
                   <span>Google Maps</span>
                 </a>
 
-                <a href="https://waze.com/ul?q=Av.%20Brasil,%201615,%20Balneario%20Camboriu" target="_blank" class="flex-1 bg-[#000000] border border-[#D4AF37]/60 active:border-[#F1D488] text-[#E6C35C] font-bold text-xs uppercase tracking-wider py-4 px-4 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md min-h-[52px] active:scale-95">
+                <a href="https://waze.com/ul?q=Av.%20Brasil,%201615,%20Balneario%20Camboriu" target="_blank" class="flex-1 bg-[#000000] border border-[#D4AF37]/60 active:border-[#F1D488] text-[#E6C35C] font-bold text-sm uppercase tracking-[0.15em] py-4 px-4 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md min-h-[52px] active:scale-95">
                   <i class="fa-solid fa-route text-base text-[#E6C35C]"></i>
                   <span>Waze</span>
                 </a>
               </div>
 
               <!-- BOTÃO DE AVALIAÇÃO COM ESTRELAS NO GOOGLE -->
-              <a :href="clinic.googleReviewUrl" target="_blank" rel="noopener" class="w-full gold-button font-extrabold text-xs uppercase tracking-wider py-4 px-4 rounded-xl flex items-center justify-center gap-3 cursor-pointer active:scale-95 shadow-lg min-h-[56px] border border-[#F1D488]">
+              <a :href="clinic.googleReviewUrl" target="_blank" rel="noopener" class="w-full gold-button font-bold text-sm uppercase tracking-[0.15em] py-4 px-4 rounded-xl flex items-center justify-center gap-3 cursor-pointer active:scale-95 shadow-lg min-h-[56px] border border-[#F1D488]">
                 <span class="flex items-center gap-1 text-black">
                   <i class="fa-solid fa-star text-sm"></i>
                   <i class="fa-solid fa-star text-sm"></i>
@@ -551,11 +512,11 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="hidden md:block bg-[#000000] border-t border-[#D4AF37]/30 py-8 text-center text-xs text-[#D4AF37]">
+    <footer class="hidden md:block bg-[#000000] border-t border-[#D4AF37]/30 py-8 text-center text-sm text-[#D4AF37]">
       <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <img :src="clinic.logoUrl" alt="Logo Neoform" class="w-8 h-8 object-contain">
-          <span class="font-['Cormorant_Garamond'] text-lg font-bold text-[#E6C35C]">NEOFORM CLÍNICA ESTÉTICA</span>
+          <span class="text-lg font-semibold tracking-[0.2em] uppercase text-[#E6C35C]">Neoform Estética Avançada</span>
         </div>
         <p class="text-[#D4AF37]">© 2026 Neoform Estética Avançada. Todos os direitos reservados. Balneário Camboriú - SC.</p>
       </div>
@@ -566,12 +527,12 @@
       
       <button @click="activeTab = 'home'; scrollToTop()" :class="activeTab === 'home' ? 'text-[#E6C35C] font-bold nav-item-active' : 'text-[#D4AF37]/60'" class="flex flex-col items-center justify-center gap-1 py-2 px-3 cursor-pointer active:scale-90 transition-transform min-w-[60px]">
         <i :class="activeTab === 'home' ? 'text-[#E6C35C]' : ''" class="fa-solid fa-house text-lg"></i>
-        <span class="text-[10px] tracking-tight leading-none">Início</span>
+        <span class="text-[11px] tracking-tight leading-none">Início</span>
       </button>
 
       <button @click="activeTab = 'tratamentos'; scrollToTop()" :class="activeTab === 'tratamentos' ? 'text-[#E6C35C] font-bold nav-item-active' : 'text-[#D4AF37]/60'" class="flex flex-col items-center justify-center gap-1 py-2 px-3 cursor-pointer active:scale-90 transition-transform min-w-[60px]">
         <i :class="activeTab === 'tratamentos' ? 'text-[#E6C35C]' : ''" class="fa-solid fa-wand-magic-sparkles text-lg"></i>
-        <span class="text-[10px] tracking-tight leading-none">Tratamentos</span>
+        <span class="text-[11px] tracking-tight leading-none">Tratamentos</span>
       </button>
 
       <button @click="openWhatsApp('Olá! Vim pelo site e gostaria de agendar uma avaliação.')" class="floating-whatsapp flex flex-col items-center justify-center w-14 h-14 rounded-full gold-button text-black -mt-7 border-2 border-[#000000] cursor-pointer active:scale-90 transition-transform relative" title="Agendar WhatsApp">
@@ -581,12 +542,12 @@
 
       <button @click="activeTab = 'sobre'; scrollToTop()" :class="activeTab === 'sobre' ? 'text-[#E6C35C] font-bold nav-item-active' : 'text-[#D4AF37]/60'" class="flex flex-col items-center justify-center gap-1 py-2 px-3 cursor-pointer active:scale-90 transition-transform min-w-[60px]">
         <i :class="activeTab === 'sobre' ? 'text-[#E6C35C]' : ''" class="fa-solid fa-crown text-lg"></i>
-        <span class="text-[10px] tracking-tight leading-none">Sobre</span>
+        <span class="text-[11px] tracking-tight leading-none">Sobre</span>
       </button>
 
       <button @click="activeTab = 'localizacao'; scrollToTop()" :class="activeTab === 'localizacao' ? 'text-[#E6C35C] font-bold nav-item-active' : 'text-[#D4AF37]/60'" class="flex flex-col items-center justify-center gap-1 py-2 px-3 cursor-pointer active:scale-90 transition-transform min-w-[60px]">
         <i :class="activeTab === 'localizacao' ? 'text-[#E6C35C]' : ''" class="fa-solid fa-location-dot text-lg"></i>
-        <span class="text-[10px] tracking-tight leading-none">Local</span>
+        <span class="text-[11px] tracking-tight leading-none">Local</span>
       </button>
 
     </div>
@@ -601,7 +562,7 @@
         <div class="flex items-center justify-between pb-4 border-b border-[#D4AF37]/30 mb-4">
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-box-archive text-[#E6C35C] text-xl"></i>
-            <h3 class="font-['Cormorant_Garamond'] text-xl sm:text-2xl font-bold text-[#E6C35C]">Meu Pacote</h3>
+            <h3 class="uppercase tracking-[0.1em] text-xl sm:text-2xl font-semibold text-[#E6C35C]">Meu Pacote</h3>
           </div>
           <button @click="showPackageModal = false" class="w-10 h-10 rounded-full flex items-center justify-center text-[#D4AF37] active:text-[#E6C35C] text-xl active:bg-[#1A1A1A] transition-colors">
             <i class="fa-solid fa-xmark"></i>
@@ -610,24 +571,24 @@
 
         <div v-if="packageList.length === 0" class="text-center py-8 text-[#D4AF37]">
           <i class="fa-solid fa-circle-plus text-4xl text-[#D4AF37]/60 mb-3"></i>
-          <p class="text-sm font-semibold text-[#E6C35C]">Nenhum tratamento adicionado</p>
-          <p class="text-xs text-[#D4AF37] mt-2 leading-relaxed">Navegue no catálogo e clique no botão (+) para montar seu pacote.</p>
+          <p class="text-base font-semibold text-[#E6C35C]">Nenhum tratamento adicionado</p>
+          <p class="text-base text-[#D4AF37] mt-2 leading-relaxed">Navegue no catálogo e clique no botão (+) para montar seu pacote.</p>
         </div>
 
         <div v-else class="space-y-3 max-h-[50vh] overflow-y-auto mb-6 pr-1">
           <div v-for="item in packageList" :key="item.id" class="flex items-center justify-between p-3.5 bg-[#0A0A0A] border border-[#D4AF37]/30 rounded-xl">
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-bold text-[#E6C35C] truncate">{{ item.title }}</p>
-              <p class="text-[10px] text-[#D4AF37] mt-0.5">{{ item.categoryLabel }}</p>
+              <p class="text-base font-bold text-[#E6C35C] truncate">{{ item.title }}</p>
+              <p class="text-sm text-[#D4AF37] mt-0.5">{{ item.categoryLabel }}</p>
             </div>
-            <button @click="togglePackage(item)" class="w-10 h-10 rounded-full flex items-center justify-center text-[#D4AF37] active:text-red-400 active:bg-red-500/10 text-xs shrink-0 ml-2 transition-colors">
+            <button @click="togglePackage(item)" class="w-10 h-10 rounded-full flex items-center justify-center text-[#D4AF37] active:text-red-400 active:bg-red-500/10 text-sm shrink-0 ml-2 transition-colors">
               <i class="fa-solid fa-trash"></i>
             </button>
           </div>
         </div>
 
         <div v-if="packageList.length > 0" class="pt-2">
-          <button @click="sendPackageToWhatsApp" class="w-full gold-button font-extrabold text-xs uppercase tracking-wider py-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 min-h-[56px]">
+          <button @click="sendPackageToWhatsApp" class="w-full gold-button font-bold text-sm uppercase tracking-[0.15em] py-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 min-h-[56px]">
             <i class="fa-brands fa-whatsapp text-lg text-black"></i>
             <span>Enviar Pacote no WhatsApp</span>
           </button>
@@ -654,7 +615,7 @@
           formattedPhone: '(47) 99657-4623',
           openingHours: 'Segunda a Sexta: 09:30 às 19:00 (Com Hora Marcada)',
           director: 'Nel Wolff — Proprietária & Administradora',
-          logoUrl: 'https://i.ibb.co/vvjPZB4X/logo-removebg-preview.png',
+          logoUrl: 'https://i.ibb.co/TxnVm2Lm/logo-removebg-preview.png',
           nelWolffImgUrl: 'https://i.ibb.co/XZmqLR90/image.png',
           mapsUrl: 'https://maps.google.com/?q=Av.+Brasil,+1615+-+Centro,+Balne%C3%A1rio+Cambori%C3%BA+-+SC',
           googleReviewUrl: 'https://www.google.com/search?client=ms-android-motorola-rvo3&hs=Vw6&sca_esv=28d5dd4666abb16a&sxsrf=APpeQnu7s9OJKpLXUuOsPyNfIbK-PS_Uww:1786716376272&q=avalia%C3%A7%C3%B5es+sobre+neoform+cl%C3%ADnica+est%C3%A9tica+avan%C3%A7ada+balne%C3%A1rio+cambori%C3%BA&uds=AJ5uw1-m412bHotxCZEQ7UmziUWH6T0vIaWepcHAa59xadxWQPZYs4LBmO21x7y8MTOU7b38Fw8rTG3bkB0RF8br_5ApmJRrGoVDQ6L2xN4VjSBaUjLw6U95rK1llcbl6nUhezy6_trTj76sGcvoURFtfv5gYx2tMZO0RCML4qcLatuCVjDirJA-nAc5I0rd_AUbqX8JJVT23poys_0hw9z0vs9iLdytDeomZrnSQHDazTUEf23BkKsRtM2299uBrOjeZxm4B1nrsiv0Tlmgfgvnv2E6stYigQZv9B21UzicXHxGwhg9muhjv_dhYeUl-Wk43sWIrH13qlmj0wsQceZJ1RJE7G1pSaIcQ3KgedpMwBPd-vROyj09nRUupRLDzAapfhT_WG-lRBIyXO3xhGoy7gUK3ePpW0kRXoww7P0eB49gAS82bCwXZna2oSAh5mw5__LPoXcHqFjLvaJv_hasoVqsJE-uuWR_Tv6hgb1TT8wjLM4GZZ0&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_7bzzEu4E-EGppFP7Gy1JkqcNDJj478qkvG8mRhowiuk9b-FnHxvSFC2USoq-3wfSd15NOGrBXSqAAk-EzC0MTT-wqEbpV5e_c6DQwmk3Y_SBdD45KSHBuqJbpiuEWjWYFQ2cY4I10HvlsQWFotj59fBl1Xu37wpvetsbfR3OND_4RBAgQ%3D%3D&sa=X&ved=2ahUKEwjK7K-XpaCWAxXeBrkGHX9bDi4Qk8gLegQIHhAB&ictx=1&biw=511&bih=1082&dpr=2.39'
