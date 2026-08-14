@@ -71,6 +71,12 @@
     }
     .scrollbar-none::-webkit-scrollbar { display: none; }
     .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+    .smooth-scroll-x { -webkit-overflow-scrolling: touch; }
+
+    .emoji-gold {
+      filter: grayscale(100%) sepia(100%) saturate(260%) hue-rotate(-8deg) brightness(1.15);
+      text-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
+    }
     
     .nav-item-active { position: relative; }
     .nav-item-active::after {
@@ -155,14 +161,34 @@
 <body class="min-h-screen bg-[#000000] text-[#D4AF37] antialiased pb-28 md:pb-12">
 
   <div id="app">
-    <main>
+
+    <!-- BARRA SUPERIOR DE NAVEGAÇÃO (SOMENTE DESKTOP) -->
+    <header class="hidden md:flex fixed top-0 inset-x-0 z-40 bg-[#000000]/95 backdrop-blur-xl border-b border-[#D4AF37]/30 px-6 lg:px-10 py-3 items-center justify-between gap-6">
+      <button @click="activeTab = 'home'; scrollToTop()" class="flex items-center gap-3 cursor-pointer active:scale-95 transition-transform">
+        <img :src="clinic.logoUrl" alt="Logo Neoform" class="w-10 h-10 object-contain">
+        <span class="font-['Cormorant_Garamond'] text-xl font-bold tracking-[3px] text-[#E6C35C]">NEOFORM</span>
+      </button>
+
+      <nav class="flex items-center gap-5 lg:gap-8">
+        <button @click="activeTab = 'home'; scrollToTop()" :class="activeTab === 'home' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors cursor-pointer">Início</button>
+        <button @click="activeTab = 'tratamentos'; scrollToTop()" :class="activeTab === 'tratamentos' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors cursor-pointer">Tratamentos</button>
+        <button @click="activeTab = 'sobre'; scrollToTop()" :class="activeTab === 'sobre' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors cursor-pointer">Sobre</button>
+        <button @click="activeTab = 'localizacao'; scrollToTop()" :class="activeTab === 'localizacao' ? 'text-[#E6C35C] border-[#D4AF37]' : 'text-[#D4AF37]/70 border-transparent hover:text-[#E6C35C]'" class="text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors cursor-pointer">Local</button>
+        <button @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="gold-button font-extrabold text-xs uppercase tracking-widest px-5 py-2.5 rounded-full flex items-center gap-2 cursor-pointer active:scale-95 transition-transform">
+          <i class="fa-brands fa-whatsapp text-sm text-black"></i>
+          <span>Agendar</span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="md:pt-16">
       
-      <!-- GUIA 1: INÍCIO -->
+      <!-- GUIA 1: INÍCIO (RESUMIDO) -->
       <section v-if="activeTab === 'home'">
         <div class="relative py-10 sm:py-16 md:py-20 overflow-hidden bg-[#000000] border-b border-[#D4AF37]/20">
           <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10 flex flex-col items-center">
             
-            <!-- LOGO GRANDE — FUNDO PRETO PURO -->
+            <!-- LOGO GRANDE E VISÍVEL -->
             <div @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="logo-container mb-8 cursor-pointer">
               <div class="logo-ring-dashed"></div>
               <div class="logo-ring"></div>
@@ -181,15 +207,11 @@
 
             <div class="w-20 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mb-8"></div>
 
-            <h1 class="font-['Cormorant_Garamond'] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-tight mb-5 max-w-2xl text-[#E6C35C] tracking-wide">
+            <h1 class="font-['Cormorant_Garamond'] text-2xl sm:text-4xl md:text-5xl font-normal leading-tight mb-8 max-w-2xl text-[#E6C35C] tracking-wide">
               Sua beleza em sua <span class="italic font-normal gold-gradient-text">melhor versão</span>
             </h1>
 
-            <p class="text-sm sm:text-base text-[#D4AF37]/90 max-w-xl mx-auto mb-9 font-light leading-relaxed px-2">
-              Tecnologia, ciência e excelência em protocolos personalizados para realçar a sua melhor versão em Balneário Camboriú.
-            </p>
-
-            <div class="flex flex-col items-stretch justify-center gap-3 w-full max-w-md mb-12">
+            <div class="flex flex-col items-stretch justify-center gap-3 w-full max-w-md mb-10">
               <button @click="openWhatsApp('Olá! Gostaria de agendar uma avaliação estética na Neoform.')" class="gold-button font-extrabold text-sm uppercase tracking-widest px-6 py-5 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.45)] active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-[#F1D488]/50 min-h-[60px]">
                 <i class="fa-brands fa-whatsapp text-xl text-black"></i>
                 <span>Agendar Avaliação</span>
@@ -232,11 +254,11 @@
         </div>
       </section>
 
-      <!-- GUIA 2: TRATAMENTOS -->
-      <section v-if="activeTab === 'tratamentos' || activeTab === 'home'" class="py-10 sm:py-16 md:py-20 bg-[#000000] border-t border-[#D4AF37]/20">
+      <!-- GUIA 2: TRATAMENTOS + TODOS OS PROFISSIONAIS -->
+      <section v-if="activeTab === 'tratamentos'" class="py-10 sm:py-16 md:py-20 bg-[#000000] border-t border-[#D4AF37]/20">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-8 gap-4">
             <div>
               <div class="flex items-center gap-2 mb-2">
                 <span class="w-8 h-[2px] bg-[#D4AF37]"></span>
@@ -247,6 +269,9 @@
               <h2 class="font-['Cormorant_Garamond'] text-2xl sm:text-4xl md:text-5xl font-normal text-[#E6C35C] leading-tight">
                 Soluções para cada fase da sua <span class="italic gold-gradient-text">jornada</span>.
               </h2>
+              <span class="md:hidden flex items-center gap-2 mt-3 text-[10px] uppercase tracking-widest text-[#D4AF37]/70">
+                <i class="fa-solid fa-hand-pointer"></i> Arraste para o lado
+              </span>
             </div>
 
             <button
@@ -258,7 +283,7 @@
             </button>
           </div>
 
-          <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-3 mb-8 scrollbar-none -mx-4 px-4">
+          <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-3 mb-8 scrollbar-none smooth-scroll-x -mx-4 px-4">
             <button
               v-for="cat in categories"
               :key="cat.id"
@@ -270,12 +295,13 @@
             </button>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <!-- TRATAMENTOS: CARROSSEL NO CELULAR / GRADE 4 COLUNAS NO DESKTOP -->
+          <div class="flex gap-3 sm:gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none smooth-scroll-x -mx-4 px-4 pb-4 lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-visible lg:mx-0 lg:px-0 lg:pb-0">
             <div
               v-for="treatment in filteredTreatments"
               :key="treatment.id"
               :class="inPackage(treatment.id) ? 'border-[#F1D488] shadow-[0_0_30px_rgba(212,175,55,0.45)] bg-[#0A0A0A]' : 'border-[#D4AF37]/40 active:border-[#F1D488]/80 bg-[#000000]'"
-              class="touch-card group relative border rounded-2xl p-6 sm:p-7 flex flex-col justify-between text-center shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+              class="snap-center shrink-0 w-[78%] sm:w-[46%] lg:w-auto touch-card group relative border rounded-2xl p-6 sm:p-7 flex flex-col justify-between text-center shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
             >
               <div class="flex flex-col items-center">
                 <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -299,7 +325,7 @@
               <div class="flex flex-col items-center gap-3 pt-4 border-t border-[#D4AF37]/30 w-full">
                 <div class="flex items-center justify-between w-full gap-3">
                   <button
-                    @click="openWhatsApp('Olá! Gostaria de agendar o procedimento: ' + treatment.title)"
+                    @click="openWhatsApp('Olá! Gostaria de agendar o procedimento: ' + treatment.title + '. ' + treatment.shortDesc)"
                     class="flex-1 gold-button font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-xl active:scale-95 transition-all cursor-pointer shadow-md min-h-[48px]"
                   >
                     Agendar
@@ -314,25 +340,78 @@
                     <i :class="inPackage(treatment.id) ? 'fa-solid fa-check' : 'fa-solid fa-plus'"></i>
                   </button>
                 </div>
-
-                <button 
-                  v-if="packageList.length > 0 && filteredTreatments[0]?.id === treatment.id"
-                  @click="showPackageModal = true"
-                  class="w-full mt-2 bg-[#000000] border-2 border-[#D4AF37] active:border-[#F1D488] text-[#E6C35C] font-bold text-xs uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-2 cursor-pointer active:scale-95 min-h-[48px]"
-                >
-                  <i class="fa-solid fa-box-archive text-[#E6C35C]"></i>
-                  <span>Ver Pacote ({{ packageList.length }})</span>
-                </button>
               </div>
 
             </div>
           </div>
 
+          <!-- ESPECIALIDADES — MESMO FORMATO, COM AGENDAR + (+) -->
+          <div class="mt-12 sm:mt-16">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-8 h-[2px] bg-[#D4AF37]"></span>
+              <span class="text-[10px] sm:text-xs font-bold tracking-[3px] uppercase text-[#D4AF37]">ESPECIALIDADES</span>
+            </div>
+
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-6">
+              <h2 class="font-['Cormorant_Garamond'] text-2xl sm:text-4xl font-normal text-[#E6C35C] leading-tight">
+                Corpo técnico <span class="italic gold-gradient-text">multidisciplinar</span>.
+              </h2>
+              <span class="md:hidden flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#D4AF37]/70">
+                <i class="fa-solid fa-hand-pointer"></i> Arraste para o lado
+              </span>
+            </div>
+
+            <div class="flex gap-3 sm:gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none smooth-scroll-x -mx-4 px-4 pb-4 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:mx-0 lg:px-0 lg:pb-0">
+              <div
+                v-for="spec in specialists"
+                :key="spec.id"
+                :class="inPackage(spec.id) ? 'border-[#F1D488] shadow-[0_0_30px_rgba(212,175,55,0.45)] bg-[#0A0A0A]' : 'border-[#D4AF37]/25 hover:border-[#D4AF37]/60 bg-[#0A0A0A]'"
+                class="snap-center shrink-0 w-[78%] sm:w-[46%] lg:w-auto border rounded-2xl p-5 sm:p-6 flex flex-col justify-between text-center transition-all duration-300 active:scale-[0.98]"
+              >
+                <div class="flex flex-col items-center">
+                  <div class="w-16 h-16 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/10 flex items-center justify-center mb-4 shrink-0 shadow-[inset_0_0_15px_rgba(212,175,55,0.15)]">
+                    <span class="emoji-gold text-2xl leading-none">{{ spec.emoji }}</span>
+                  </div>
+                  <h3 class="font-['Cormorant_Garamond'] text-lg sm:text-xl font-bold text-[#E6C35C] mb-2 leading-snug">{{ spec.title }}</h3>
+                  <p class="text-xs sm:text-sm text-[#D4AF37]/85 font-light leading-relaxed mb-5">{{ spec.desc }}</p>
+                </div>
+
+                <div class="pt-4 border-t border-[#D4AF37]/30 w-full">
+                  <div class="flex items-center justify-between w-full gap-3">
+                    <button
+                      @click="openWhatsApp('Olá! Gostaria de agendar com o profissional: ' + spec.title + '. ' + spec.desc)"
+                      class="flex-1 gold-button font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-xl active:scale-95 transition-all cursor-pointer shadow-md min-h-[48px]"
+                    >
+                      Agendar
+                    </button>
+
+                    <button
+                      @click="togglePackage(spec)"
+                      :class="inPackage(spec.id) ? 'bg-[#D4AF37] text-black border-[#F1D488] shadow-[0_0_12px_rgba(212,175,55,0.5)]' : 'border-[#D4AF37]/50 text-[#D4AF37] active:border-[#F1D488] active:text-[#E6C35C]'"
+                      class="w-12 h-12 rounded-full border-2 flex items-center justify-center text-base font-bold transition-all cursor-pointer shrink-0 active:scale-90"
+                      :title="inPackage(spec.id) ? 'Remover do Pacote' : 'Adicionar ao Pacote'"
+                    >
+                      <i :class="inPackage(spec.id) ? 'fa-solid fa-check' : 'fa-solid fa-plus'"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTÃO VER PACOTE FLUTUANTE -->
+          <div v-if="packageList.length > 0" class="fixed bottom-24 md:bottom-8 right-4 z-40">
+            <button @click="showPackageModal = true" class="gold-button font-extrabold text-xs uppercase tracking-wider px-5 py-4 rounded-full flex items-center gap-2 cursor-pointer active:scale-95 shadow-xl min-h-[52px]">
+              <i class="fa-solid fa-box-archive text-black"></i>
+              <span>Pacote ({{ packageList.length }})</span>
+            </button>
+          </div>
+
         </div>
       </section>
 
-      <!-- GUIA 3: SOBRE DRA. NEL WOLFF -->
-      <section v-if="activeTab === 'sobre' || activeTab === 'home'" class="py-12 sm:py-16 md:py-24 bg-[#000000] border-t-2 border-[#D4AF37]">
+      <!-- GUIA 3: SOBRE NEL WOLFF — PROPRIETÁRIA & ADMINISTRADORA -->
+      <section v-if="activeTab === 'sobre'" class="py-12 sm:py-16 md:py-24 bg-[#000000] border-t-2 border-[#D4AF37]">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="noir-card rounded-3xl p-5 sm:p-8 md:p-10 border-2 border-[#D4AF37]">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-center">
@@ -345,14 +424,17 @@
 
               <div class="lg:col-span-7 space-y-6">
                 <div>
-                  <span class="text-xs sm:text-sm font-bold uppercase tracking-[3px] sm:tracking-[4px] text-[#D4AF37]">✨ DIREÇÃO TÉCNICA E ACOLHIMENTO</span>
-                  <h2 class="font-['Cormorant_Garamond'] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#E6C35C] mt-2 leading-tight">
-                    Tradição e Ciência em <span class="italic font-normal gold-gradient-text">Balneário Camboriú</span>.
+                  <span class="text-xs sm:text-sm font-bold uppercase tracking-[3px] sm:tracking-[4px] text-[#D4AF37]">👑 PROPRIETÁRIA & ADMINISTRADORA</span>
+                  <h2 class="font-['Cormorant_Garamond'] text-4xl sm:text-5xl lg:text-6xl font-bold text-[#E6C35C] mt-2 leading-tight">
+                    Nel Wolff
                   </h2>
+                  <p class="font-['Cormorant_Garamond'] text-xl sm:text-2xl italic gold-gradient-text mt-1">
+                    Tradição e Ciência em Balneário Camboriú.
+                  </p>
                 </div>
 
                 <p class="text-sm sm:text-lg text-[#D4AF37] font-light leading-relaxed">
-                  Com anos de dedicação ao bem-estar e à autoestima, a Dra. Nel Wolff lidera a equipe Neoform com uma visão integrativa e humanizada. Cada procedimento é rigorosamente desenvolvido para realçar a beleza natural com segurança e sofisticação.
+                  À frente da Neoform como proprietária e administradora, Nel Wolff lidera a equipe com uma visão integrativa e humanizada. Cada procedimento é rigorosamente desenvolvido para realçar a beleza natural com segurança e sofisticação.
                 </p>
 
                 <div class="grid grid-cols-2 gap-4 sm:gap-6 py-4 border-y border-[#D4AF37]/40">
@@ -361,15 +443,15 @@
                     <p class="text-xs sm:text-sm text-[#E6C35C] font-bold">Atendimento Exclusivo</p>
                   </div>
                   <div class="border-l-4 border-[#D4AF37] pl-3 sm:pl-4">
-                    <p class="text-2xl sm:text-3xl font-extrabold gold-gradient-text">+10 Anos</p>
+                    <p class="text-2xl sm:text-3xl font-extrabold gold-gradient-text">6 Anos</p>
                     <p class="text-xs sm:text-sm text-[#E6C35C] font-bold">Excelência Clínica</p>
                   </div>
                 </div>
 
                 <div class="pt-2">
-                  <button @click="openWhatsApp('Olá Dra. Nel Wolff! Gostaria de agendar minha anamnese personalizada.')" class="w-full sm:w-auto gold-button font-extrabold text-xs sm:text-sm uppercase tracking-widest px-6 sm:px-8 py-4 sm:py-5 rounded-xl flex items-center justify-center gap-3 cursor-pointer shadow-xl active:scale-95 transition-transform border border-[#F1D488] min-h-[56px]">
+                  <button @click="openWhatsApp('Olá Nel Wolff! Gostaria de agendar meu atendimento personalizado na Neoform.')" class="w-full sm:w-auto gold-button font-extrabold text-xs sm:text-sm uppercase tracking-widest px-6 sm:px-8 py-4 sm:py-5 rounded-xl flex items-center justify-center gap-3 cursor-pointer shadow-xl active:scale-95 transition-transform border border-[#F1D488] min-h-[56px]">
                     <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>Agendar Anamnese</span>
+                    <span>Agendar com Nel Wolff</span>
                   </button>
                 </div>
               </div>
@@ -380,7 +462,7 @@
       </section>
 
       <!-- GUIA 4: LOCALIZAÇÃO & CONTATO -->
-      <section v-if="activeTab === 'localizacao' || activeTab === 'home'" class="py-10 sm:py-16 md:py-20 bg-[#000000] border-t border-[#D4AF37]/20">
+      <section v-if="activeTab === 'localizacao'" class="py-10 sm:py-16 md:py-20 bg-[#000000] border-t border-[#D4AF37]/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
@@ -435,6 +517,18 @@
                 </a>
               </div>
 
+              <!-- BOTÃO DE AVALIAÇÃO COM ESTRELAS NO GOOGLE -->
+              <a :href="clinic.googleReviewUrl" target="_blank" rel="noopener" class="w-full gold-button font-extrabold text-xs uppercase tracking-wider py-4 px-4 rounded-xl flex items-center justify-center gap-3 cursor-pointer active:scale-95 shadow-lg min-h-[56px] border border-[#F1D488]">
+                <span class="flex items-center gap-1 text-black">
+                  <i class="fa-solid fa-star text-sm"></i>
+                  <i class="fa-solid fa-star text-sm"></i>
+                  <i class="fa-solid fa-star text-sm"></i>
+                  <i class="fa-solid fa-star text-sm"></i>
+                  <i class="fa-solid fa-star text-sm"></i>
+                </span>
+                <span>Avaliar no Google</span>
+              </a>
+
             </div>
 
             <div class="lg:col-span-7 noir-card rounded-2xl p-2 h-[320px] sm:h-[380px] lg:h-auto min-h-[320px] overflow-hidden">
@@ -467,7 +561,7 @@
       </div>
     </footer>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAVIGATION (MOBILE) -->
     <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#000000]/98 backdrop-blur-xl border-t border-[#D4AF37]/40 px-1 pt-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] flex items-center justify-around shadow-[0_-5px_25px_rgba(0,0,0,0.9)]">
       
       <button @click="activeTab = 'home'; scrollToTop()" :class="activeTab === 'home' ? 'text-[#E6C35C] font-bold nav-item-active' : 'text-[#D4AF37]/60'" class="flex flex-col items-center justify-center gap-1 py-2 px-3 cursor-pointer active:scale-90 transition-transform min-w-[60px]">
@@ -486,7 +580,7 @@
       </button>
 
       <button @click="activeTab = 'sobre'; scrollToTop()" :class="activeTab === 'sobre' ? 'text-[#E6C35C] font-bold nav-item-active' : 'text-[#D4AF37]/60'" class="flex flex-col items-center justify-center gap-1 py-2 px-3 cursor-pointer active:scale-90 transition-transform min-w-[60px]">
-        <i :class="activeTab === 'sobre' ? 'text-[#E6C35C]' : ''" class="fa-solid fa-user-doctor text-lg"></i>
+        <i :class="activeTab === 'sobre' ? 'text-[#E6C35C]' : ''" class="fa-solid fa-crown text-lg"></i>
         <span class="text-[10px] tracking-tight leading-none">Sobre</span>
       </button>
 
@@ -559,10 +653,11 @@
           phone: '5547996574623',
           formattedPhone: '(47) 99657-4623',
           openingHours: 'Segunda a Sexta: 09:30 às 19:00 (Com Hora Marcada)',
-          director: 'Nel Wolff',
+          director: 'Nel Wolff — Proprietária & Administradora',
           logoUrl: 'https://i.ibb.co/vvjPZB4X/logo-removebg-preview.png',
           nelWolffImgUrl: 'https://i.ibb.co/XZmqLR90/image.png',
-          mapsUrl: 'https://maps.google.com/?q=Av.+Brasil,+1615+-+Centro,+Balne%C3%A1rio+Cambori%C3%BA+-+SC'
+          mapsUrl: 'https://maps.google.com/?q=Av.+Brasil,+1615+-+Centro,+Balne%C3%A1rio+Cambori%C3%BA+-+SC',
+          googleReviewUrl: 'https://www.google.com/search?client=ms-android-motorola-rvo3&hs=Vw6&sca_esv=28d5dd4666abb16a&sxsrf=APpeQnu7s9OJKpLXUuOsPyNfIbK-PS_Uww:1786716376272&q=avalia%C3%A7%C3%B5es+sobre+neoform+cl%C3%ADnica+est%C3%A9tica+avan%C3%A7ada+balne%C3%A1rio+cambori%C3%BA&uds=AJ5uw1-m412bHotxCZEQ7UmziUWH6T0vIaWepcHAa59xadxWQPZYs4LBmO21x7y8MTOU7b38Fw8rTG3bkB0RF8br_5ApmJRrGoVDQ6L2xN4VjSBaUjLw6U95rK1llcbl6nUhezy6_trTj76sGcvoURFtfv5gYx2tMZO0RCML4qcLatuCVjDirJA-nAc5I0rd_AUbqX8JJVT23poys_0hw9z0vs9iLdytDeomZrnSQHDazTUEf23BkKsRtM2299uBrOjeZxm4B1nrsiv0Tlmgfgvnv2E6stYigQZv9B21UzicXHxGwhg9muhjv_dhYeUl-Wk43sWIrH13qlmj0wsQceZJ1RJE7G1pSaIcQ3KgedpMwBPd-vROyj09nRUupRLDzAapfhT_WG-lRBIyXO3xhGoy7gUK3ePpW0kRXoww7P0eB49gAS82bCwXZna2oSAh5mw5__LPoXcHqFjLvaJv_hasoVqsJE-uuWR_Tv6hgb1TT8wjLM4GZZ0&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_7bzzEu4E-EGppFP7Gy1JkqcNDJj478qkvG8mRhowiuk9b-FnHxvSFC2USoq-3wfSd15NOGrBXSqAAk-EzC0MTT-wqEbpV5e_c6DQwmk3Y_SBdD45KSHBuqJbpiuEWjWYFQ2cY4I10HvlsQWFotj59fBl1Xu37wpvetsbfR3OND_4RBAgQ%3D%3D&sa=X&ved=2ahUKEwjK7K-XpaCWAxXeBrkGHX9bDi4Qk8gLegQIHhAB&ictx=1&biw=511&bih=1082&dpr=2.39'
         });
 
         const categories = ref([
@@ -580,6 +675,21 @@
           { id: 'skincare-medicinal', title: 'SKINCARE MEDICINAL', category: 'skincare', categoryLabel: 'Cuidados com a Pele', shortDesc: 'Tratamentos que cuidam da sua pele.', iconType: 'lotus', popular: true }
         ]);
 
+        const specialists = ref([
+          { id: 'nutricionista', title: 'Nutricionista', emoji: '🍎', categoryLabel: 'Especialidade', desc: 'Planos alimentares personalizados para saúde corporal, vitalidade e beleza da pele.' },
+          { id: 'psicologo', title: 'Psicólogo', emoji: '🧠', categoryLabel: 'Especialidade', desc: 'Acompanhamento emocional e bem-estar mental em um espaço seguro e acolhedor.' },
+          { id: 'naturopata', title: 'Naturopata', emoji: '🌿', categoryLabel: 'Especialidade', desc: 'Terapias naturais e holísticas voltadas para o reequilíbrio integrativo do organismo.' },
+          { id: 'iridologo', title: 'Iridólogo', emoji: '👁️', categoryLabel: 'Especialidade', desc: 'Análise preventiva através da íris para identificação de desequilíbrios corporais.' },
+          { id: 'biomedicos', title: 'Biomédicos', emoji: '💉', categoryLabel: 'Especialidade', desc: 'Especialistas em tratamentos estéticos avançados não invasivos e rejuvenescimento.' },
+          { id: 'dentista', title: 'Dentista (Estética)', emoji: '🦷', categoryLabel: 'Especialidade', desc: 'Atuação em harmonização estética facial e realce da beleza do seu sorriso.' },
+          { id: 'terapeutas', title: 'Terapeutas', emoji: '🪷', categoryLabel: 'Especialidade', desc: 'Técnicas terapêuticas para alívio de dor, diminuição do estresse e relaxamento profundo.' },
+          { id: 'esteticistas', title: 'Esteticistas', emoji: '✨', categoryLabel: 'Especialidade', desc: 'Cuidados faciais e corporais minuciosos com tecnologia de alta performance.' },
+          { id: 'massoterapeuta', title: 'Massoterapeuta', emoji: '💆', categoryLabel: 'Especialidade', desc: 'Massagens relaxantes, drenagem linfática e rituais de SPA para alívio de tensões.' },
+          { id: 'fisio-dermato', title: 'Fisioterapeuta Dermato-Funcional', emoji: '💓', categoryLabel: 'Especialidade', desc: 'Tratamentos corporais e faciais avançados para reabilitação do tecido e estética integrativa.' },
+          { id: 'dermatologista', title: 'Dermatologista', emoji: '🩺', categoryLabel: 'Especialidade', desc: 'Acompanhamento e cuidado dermatológico para a saúde e rejuvenescimento da pele.' },
+          { id: 'outros', title: 'E Outros Especialistas', emoji: '👥', categoryLabel: 'Especialidade', desc: 'Rede multidisciplinar integrada para atender cada uma de suas necessidades.' }
+        ]);
+
         const packageList = ref([]);
 
         const filteredTreatments = computed(() => {
@@ -593,11 +703,11 @@
 
         const inPackage = (id) => packageList.value.some(item => item.id === id);
 
-        const togglePackage = (treatment) => {
-          if (inPackage(treatment.id)) {
-            packageList.value = packageList.value.filter(item => item.id !== treatment.id);
+        const togglePackage = (item) => {
+          if (inPackage(item.id)) {
+            packageList.value = packageList.value.filter(i => i.id !== item.id);
           } else {
-            packageList.value.push(treatment);
+            packageList.value.push(item);
           }
         };
 
@@ -618,7 +728,7 @@
 
         const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        return { activeTab, activeCategory, searchQuery, showPackageModal, clinic, categories, treatments, packageList, filteredTreatments, inPackage, togglePackage, openWhatsApp, sendPackageToWhatsApp, scrollToTop };
+        return { activeTab, activeCategory, searchQuery, showPackageModal, clinic, categories, treatments, specialists, packageList, filteredTreatments, inPackage, togglePackage, openWhatsApp, sendPackageToWhatsApp, scrollToTop };
       }
     }).mount('#app');
   </script>
